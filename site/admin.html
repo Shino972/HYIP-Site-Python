@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPU Mining - Админ-панель</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #191b1c 0%, #2d3748 100%);
+        }
+    </style>
+</head>
+<body class="bg-[#151819] min-h-screen flex flex-col font-sans">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold flex items-center">
+                <i class="fas fa-microchip mr-2"></i>
+                <span>GPU Mining</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="dashboard.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                    <i class="fas fa-tachometer-alt mr-2"></i> Кабинет
+                </a>
+                <a href="payment.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                    <i class="fas fa-wallet mr-2"></i> Пополнить
+                </a>
+                <a href="withdraw.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                    <i class="fas fa-money-bill-wave mr-2"></i> Вывести
+                </a>
+                <a href="history.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                    <i class="fas fa-history mr-2"></i> История
+                </a>
+                <a href="#" onclick="logout()" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Выйти
+                </a>
+            </div>
+            
+            <button class="md:hidden text-2xl focus:outline-none" id="mobileMenuButton">
+                ☰
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-blue-700 px-4 py-2" id="mobileMenu">
+            <a href="dashboard.html" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                <i class="fas fa-tachometer-alt mr-3"></i> Кабинет
+            </a>
+            <a href="payment.html" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                <i class="fas fa-wallet mr-3"></i> Пополнить
+            </a>
+            <a href="withdraw.html" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                <i class="fas fa-money-bill-wave mr-3"></i> Вывести
+            </a>
+            <a href="history.html" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                <i class="fas fa-history mr-3"></i> История
+            </a>
+            <a href="#" onclick="logout()" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                <i class="fas fa-sign-out-alt mr-3"></i> Выйти
+            </a>
+        </div>
+    </header>
+
+    <main class="container text-white mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Админ-панель</h1>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Статистика лидеров</h2>
+            <div class="bg-[#25282a] rounded-lg shadow-md p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Топ 5 богатых</h3>
+                        <div id="topRichList" class="space-y-2">
+                            <p>Загрузка...</p>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold mb-2">Топ 5 по рефералам</h3>
+                        <div id="topReferrersList" class="space-y-2">
+                            <p>Загрузка...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Заявки на вывод</h2>
+            <div id="withdrawalList" class="bg-[#25282a] rounded-lg shadow-md p-6">
+                <p>Загрузка...</p>
+            </div>
+        </section>
+
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold mb-4">Управление пользователями</h2>
+            <div class="bg-[#25282a] rounded-lg shadow-md p-6">
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2">Информация о пользователе</h3>
+                    <form id="userInfoForm" class="space-y-4">
+                        <div>
+                            <label for="userIdOrEmail" class="block text-sm font-medium text-gray-300">ID или Email пользователя</label>
+                            <input type="text" id="userIdOrEmail" class="mt-1 bg-[#253244] block w-full text-white border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md font-semibold hover:bg-indigo-700 transition-all">Получить информацию</button>
+                    </form>
+                    <div id="userInfoResult" class="mt-4"></div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold mb-2">Добавить деньги</h3>
+                    <form id="addMoneyForm" class="space-y-4">
+                        <div>
+                            <label for="addUserId" class="block text-sm font-medium text-gray-300">ID пользователя</label>
+                            <input type="number" id="addUserId" class="mt-1 bg-[#253244] block w-full text-white border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <div>
+                            <label for="addAmount" class="block text-sm font-medium text-gray-300">Сумма (₽)</label>
+                            <input type="number" id="addAmount" min="0.01" step="0.01" class="mt-1 bg-[#253244] block w-full text-white border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md font-semibold hover:bg-indigo-700 transition-all">Добавить</button>
+                    </form>
+                    <p id="addMoneyError" class="text-red-600 mt-2"></p>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-2">Снять деньги</h3>
+                    <form id="deductMoneyForm" class="space-y-4">
+                        <div>
+                            <label for="deductUserId" class="block text-sm font-medium text-gray-300">ID пользователя</label>
+                            <input type="number" id="deductUserId" class="mt-1 bg-[#253244] block w-full text-white border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <div>
+                            <label for="deductAmount" class="block text-sm font-medium text-gray-300">Сумма (₽)</label>
+                            <input type="number" id="deductAmount" min="0.01" step="0.01" class="mt-1 bg-[#253244] block w-full text-white border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" required>
+                        </div>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-md font-semibold hover:bg-indigo-700 transition-all">Снять</button>
+                    </form>
+                    <p id="deductMoneyError" class="text-red-600 mt-2"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient text-white py-4 shadow-inner">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="mb-3 md:mb-0">
+                    <i class="fas fa-copyright mr-2"></i> 2025 GPU Mining. Все права защищены.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="https://t.me/gpuminings_support" class="hover:text-blue-200 transition-colors">
+                        <i class="fab fa-telegram text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

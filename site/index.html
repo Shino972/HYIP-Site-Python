@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPU Mining - Майнинг платформа</title>
+    <meta name="description" content="GPU Mining - платформа для облачного майнинга криптовалют с доходностью до 130%. Арендуйте видеокарты и зарабатывайте без вложений в оборудование.">
+    <meta name="keywords" content="майнинг, облачный майнинг, криптовалюта, bitcoin, ethereum, аренда видеокарт, заработок в интернете">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .transition-all {
+            transition: all 0.3s ease;
+        }
+        .mining-card {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        .tab-active {
+            background: white;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #191b1c 0%, #2d3748 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col font-sans">
+    <!-- Header -->
+    <header class="gradient-bg text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold flex items-center">
+                <i class="fas fa-microchip mr-2"></i>
+                <span>GPU Mining</span>
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-1">
+                <a href="#features" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all">Возможности</a>
+                <a href="#about" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all">О нас</a>
+                <a href="#faq" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all">FAQ</a>
+            </div>
+            
+            <button class="md:hidden text-2xl focus:outline-none" id="mobileMenuButton">
+                ☰
+            </button>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-blue-700 px-4 py-2" id="mobileMenu">
+            <a href="#features" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">Возможности</a>
+            <a href="#about" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">О нас</a>
+            <a href="#faq" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">FAQ</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="mining-card text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">GPU Майнинг Платформа</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Зарабатывайте на аренде видеокарт с доходностью до 130%</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-12">
+                <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                    <i class="fas fa-chart-line text-3xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Высокая доходность</h3>
+                    <p>До 130% прибыли от ваших инвестиций</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                    <i class="fas fa-shield-alt text-3xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Безопасность</h3>
+                    <p>Защита данных и SSL шифрование</p>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl backdrop-blur-sm">
+                    <i class="fas fa-clock text-3xl mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Круглосуточно</h3>
+                    <p>Доступ к сервису 24/7</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Section -->
+    <section class="py-12 bg-[#1c1f21]" id="auth">
+        <div class="container mx-auto px-4">
+            <div class="max-w-md mx-auto bg-[#151819] rounded-xl shadow-md overflow-hidden card-hover transition-all">
+                <div class="p-6">
+                    <h2 class="text-2xl font-bold text-center text-white mb-6">Вход / Регистрация</h2>
+                    
+                    <div class="tabs flex bg-[#1c1f21] rounded-lg p-1 mb-6">
+                        <button class="tab flex-1 py-2 rounded-md text-white font-bold" onclick="showTab('login')">Вход</button>
+                        <button class="tab flex-1 py-2 rounded-md text-white font-bold" onclick="showTab('register')">Регистрация</button>
+                    </div>
+                    
+                    <!-- В форме входа -->
+                    <form id="loginForm" class="form active">
+                        <div class="mb-4">
+                            <label class="block text-sm mb-1 text-white" for="loginEmail">Email</label>
+                            <input class="w-full p-2 bg-gray-800 rounded-lg text-white" type="email" id="loginEmail" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm mb-1 text-white" for="loginPassword">Пароль</label>
+                            <input class="w-full p-2 bg-gray-800 rounded-lg text-white" type="password" id="loginPassword" required>
+                        </div>
+                        <p id="loginError" class="text-red-500 text-sm mt-2 hidden"></p>
+                        <button class="w-full bg-blue-600 p-2 rounded-lg text-white hover:bg-blue-700 transition-all" type="submit">Войти</button>
+                    </form>
+
+                    <!-- В форме регистрации -->
+                    <form id="registerForm" class="form">
+                        <div class="mb-4">
+                            <label class="block text-sm mb-1 text-white" for="registerEmail">Email</label>
+                            <input class="w-full p-2 bg-gray-800 rounded-lg text-white" type="email" id="registerEmail" required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm mb-1 text-white" for="registerPassword">Пароль</label>
+                            <input class="w-full p-2 bg-gray-800 rounded-lg text-white" type="password" id="registerPassword" required>
+                        </div>
+                        <div class="mb-4">
+                            <input type="checkbox" id="terms" required>
+                            <label class="text-sm text-white" for="terms">Я согласен с <a href="rules.html" class="underline">условиями использования</a></label>
+                        </div>
+                        <p id="registerError" class="text-red-500 text-sm mt-2 hidden"></p>
+                        <button class="w-full bg-blue-600 p-2 rounded-lg text-white hover:bg-blue-700 transition-all" type="submit">Зарегистрироваться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-[#191b1c] text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Статистика платформы</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white/10 p-6 rounded-xl text-center backdrop-blur-sm">
+                    <div class="text-4xl font-bold mb-2" id="totalUsers">0</div>
+                    <div class="text-lg">Пользователей</div>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl text-center backdrop-blur-sm">
+                    <div class="text-4xl font-bold mb-2" id="totalDeposits">0₽</div>
+                    <div class="text-lg">Пополнено</div>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl text-center backdrop-blur-sm">
+                    <div class="text-4xl font-bold mb-2" id="totalWithdrawn">0₽</div>
+                    <div class="text-lg">Выплачено</div>
+                </div>
+                <div class="bg-white/10 p-6 rounded-xl text-center backdrop-blur-sm">
+                    <div class="text-4xl font-bold mb-2" id="daysRunning">0</div>
+                    <div class="text-lg">Дней работы</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-[#151819] text-white" id="features">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Наши преимущества</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-[#191b1c] p-6 rounded-xl card-hover transition-all">
+                    <div class="bg-[#212427] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-bolt text-blue-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Мощные видеокарты</h3>
+                    <p class="text-[#c6bfb3]">Используем только современные GPU для максимальной эффективности майнинга</p>
+                </div>
+                
+                <div class="bg-[#191b1c] p-6 rounded-xl card-hover transition-all">
+                    <div class="bg-[#034725] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-percentage text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Высокая доходность</h3>
+                    <p class="text-[#c6bfb3]">До 130% прибыли от ваших инвестиций за период аренды</p>
+                </div>
+                
+                <div class="bg-[#191b1c] p-6 rounded-xl card-hover transition-all">
+                    <div class="bg-[#1c2021] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-shield-alt text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Защита инвестиций</h3>
+                    <p class="text-[#c6bfb3]">Все оборудование застраховано, гарантия возврата средств</p>
+                </div>
+                
+                <div class="bg-[#191b1c] p-6 rounded-xl card-hover transition-all">
+                    <div class="bg-[#4a4300] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-headset text-yellow-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Поддержка 24/7</h3>
+                    <p class="text-[#c6bfb3]">Наша команда всегда готова помочь с любыми вопросами</p>
+                </div>
+                
+                <div class="bg-[#191b1c] p-6 rounded-xl card-hover transition-all">
+                    <div class="bg-[#440000] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-money-bill-wave text-red-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Быстрые выплаты</h3>
+                    <p class="text-[#c6bfb3]">Вывод средств на PAYEER в течение 24 часов</p>
+                </div>
+                
+                <div class="bg-[#191b1c] p-6 rounded-xl card-hover transition-all">
+                    <div class="bg-[#202224] w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fas fa-users text-indigo-600 text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Реферальная программа</h3>
+                    <p class="text-[#c6bfb3]">Получайте 2% от депозитов приглашенных друзей</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-16 bg-[#191b1c]" id="about">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <h2 class="text-3xl font-bold mb-6 text-white">О нашей платформе</h2>
+                    <p class="text-[#c6bfb3] mb-4">
+                        GPU Mining - это инновационная платформа для облачного майнинга криптовалют с использованием мощных видеокарт.
+                        Мы предлагаем простой и доступный способ заработка на криптовалюте без необходимости покупать дорогостоящее оборудование.
+                    </p>
+                    <p class="text-[#c6bfb3] mb-4">
+                        Мы используем только современное оборудование в дата-центрах с оптимальными условиями для майнинга.
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600">2025</div>
+                            <div class="text-[#c6bfb3]">Год запуска проекта</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600">100%</div>
+                            <div class="text-[#c6bfb3]">Фокус на качестве</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600">Готово</div>
+                            <div class="text-[#c6bfb3]">К масштабированию</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 bg-[#151819] p-6 rounded-xl shadow-md card-hover transition-all">
+                    <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop" 
+                         alt="Mining Farm" 
+                         class="w-full h-auto rounded-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-16 bg-[#151819] text-white" id="faq">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Часто задаваемые вопросы</h2>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full px-6 py-4 text-left font-medium flex justify-between items-center">
+                        <span>Как начать зарабатывать с GPU Mining?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-[#c6bfb3]">
+                            Для начала работы необходимо зарегистрироваться, пополнить баланс и выбрать подходящий тарифный план.
+                            После аренды видеокарты вы начнете получать доход автоматически.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full px-6 py-4 text-left font-medium flex justify-between items-center">
+                        <span>Какая минимальная сумма для начала работы?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-[#c6bfb3]">
+                            Минимальная сумма для аренды видеокарты составляет 100 рублей. Вы можете начать с небольшой суммы
+                            и постепенно увеличивать свои инвестиции.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full px-6 py-4 text-left font-medium flex justify-between items-center">
+                        <span>Как часто происходят выплаты?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-[#c6bfb3]">
+                            Выплаты происходят автоматически по завершении периода аренды видеокарты. Для вывода средств
+                            на PAYEER доступен мгновенный вывод в любое время с минимальной суммой 10 рублей.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 rounded-lg overflow-hidden">
+                    <button class="faq-question w-full px-6 py-4 text-left font-medium flex justify-between items-center">
+                        <span>Как работает реферальная программа?</span>
+                        <i class="fas fa-chevron-down transition-transform"></i>
+                    </button>
+                    <div class="faq-answer px-6 pb-4 hidden">
+                        <p class="text-[#c6bfb3]">
+                            Вы получаете 2% от суммы каждого депозита приглашенного вами пользователя. Реферальные начисления
+                            зачисляются на ваш баланс мгновенно и могут быть использованы для аренды видеокарт или выведены.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8 shadow-inner">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">GPU Mining</h3>
+                    <p class="text-white/80">Платформа для облачного майнинга с высокой доходностью</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Навигация</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="text-white/80 hover:text-white transition-colors">Возможности</a></li>
+                        <li><a href="#about" class="text-white/80 hover:text-white transition-colors">О нас</a></li>
+                        <li><a href="#faq" class="text-white/80 hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="dashboard.html" class="text-white/80 hover:text-white transition-colors">Кабинет</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Контакты</h3>
+                    <ul class="space-y-2">
+                        <li class="flex items-center">
+                            <i class="fab fa-telegram mr-2 text-white/80"></i>
+                            <span>@gpuminings_support</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Мы в соцсетях</h3>
+                    <div class="flex space-x-4">
+                        <a href="https://t.me/gpuminings_support" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-white/80 mb-4 md:mb-0">
+                    <i class="fas fa-copyright mr-2"></i> 2025 GPU Mining. Все права защищены.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="rules.html" class="text-white/80 hover:text-white transition-colors">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobileMenuButton').addEventListener('click', function() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Tab switching
+        function showTab(tabName) {
+            document.querySelectorAll('.form').forEach(form => {
+                form.classList.toggle('hidden', form.id !== tabName + 'Form');
+                form.classList.toggle('active', form.id === tabName + 'Form');
+            });
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.toggle('tab-active', tab.textContent.toLowerCase().includes(tabName));
+            });
+        }
+        
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                answer.classList.toggle('hidden');
+                icon.classList.toggle('transform');
+                icon.classList.toggle('rotate-180');
+            });
+        });
+    </script>
+
+    <script>
+    // Проверка сессии при загрузке страницы
+    async function checkSessionOnIndex() {
+        try {
+            const response = await fetch('/check_session', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include'
+            });
+            const data = await response.json();
+            
+            if (data.success) {
+                // Скрываем панель авторизации
+                document.getElementById('auth').style.display = 'none';
+                
+                // Показываем кнопки в навбаре
+                const navLinks = `
+                    <a href="dashboard.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                        <i class="fas fa-tachometer-alt mr-2"></i> Кабинет
+                    </a>
+                    <a href="payment.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                        <i class="fas fa-wallet mr-2"></i> Пополнить
+                    </a>
+                    <a href="withdraw.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                        <i class="fas fa-money-bill-wave mr-2"></i> Вывести
+                    </a>
+                    <a href="history.html" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                        <i class="fas fa-history mr-2"></i> История
+                    </a>
+                    <a href="#" onclick="logout()" class="px-4 py-2 rounded-lg hover:bg-white/10 transition-all flex items-center">
+                        <i class="fas fa-sign-out-alt mr-2"></i> Выйти
+                    </a>
+                `;
+                
+                // Для десктопного меню
+                const desktopNav = document.querySelector('.hidden.md\\:flex.items-center.space-x-1');
+                if (desktopNav) {
+                    desktopNav.innerHTML = navLinks;
+                }
+                
+                // Для мобильного меню
+                const mobileMenu = document.getElementById('mobileMenu');
+                if (mobileMenu) {
+                    mobileMenu.innerHTML = `
+                        <a href="dashboard.html" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                            <i class="fas fa-tachometer-alt mr-3"></i> Кабинет
+                        </a>
+                        <a href="payment.html" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                            <i class="fas fa-wallet mr-3"></i> Пополнить
+                        </a>
+                        <a href="withdraw.html" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                            <i class="fas fa-money-bill-wave mr-3"></i> Вывести
+                        </a>
+                        <a href="history.html" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                            <i class="fas fa-history mr-3"></i> История
+                        </a>
+                        <a href="#" onclick="logout()" class="block px-4 py-3 hover:bg-white/10 rounded-lg transition-all">
+                            <i class="fas fa-sign-out-alt mr-3"></i> Выйти
+                        </a>
+                    `;
+                }
+            }
+        } catch (error) {
+            console.error('Error checking session:', error);
+        }
+    }
+
+    // Вызываем при загрузке страницы
+    document.addEventListener('DOMContentLoaded', checkSessionOnIndex);
+    </script>
+</body>
+</html>

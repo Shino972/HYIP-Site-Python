@@ -1,0 +1,61 @@
+.nav-links-mobile.active {
+    display: flex;
+}
+
+.form {
+    display: none;
+}
+
+.form.active {
+    display: block;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+}
+
+th {
+    background: #303030;
+    font-weight: 600;
+    color: #1e3a8a;
+}
+
+td {
+    color: #4b5563;
+}
+
+tr:hover {
+    background: #373737;
+}
+
+button:disabled {
+    background: #3b3b3b !important;
+    color: white !important;
+    cursor: not-allowed;
+}
+
+.rented-item {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.rented-item:last-child {
+    border-bottom: none;
+}
+
+.stats-counter {
+    transition: all 0.5s ease-out;
+}
+
+.text-red-500 {
+    color: #ef4444;
+}
+.hidden {
+    display: none;
+}
